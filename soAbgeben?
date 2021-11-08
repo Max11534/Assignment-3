@@ -1,0 +1,91 @@
+package com.company;
+import java.util.Objects;
+import java.util.Scanner;
+import java.util.Date;
+
+public class Main {
+
+    // 2.1
+    public static float firstRandom(float start) {
+        int max, factor, increment;
+        max = 1000;
+        factor = 623;
+        increment = 525;
+        float random = ((factor * start) + increment) % max;
+        return random;
+    }
+    // 2.2
+    public static long randomSeed(int max){
+        long seed;
+        Date date = new Date();
+        long time = date.getTime();
+        seed = (time/10)%max;
+        return seed;
+    }
+    public static float secondRandom(int max, float start){
+        int factor, increment;
+        factor = 623;
+        increment = 525;
+        float random = ((factor * start) + increment) % max;
+        random = ((factor*random)+increment)%max;
+        return random;
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Aufgabe2.1 Testen?");
+        if (Objects.equals(new Scanner(System.in).next(),"y")) {
+            boolean bool = true;
+            Scanner eingabe = new Scanner(System.in);
+            // hier muss man halt selber einen seed eingeben und ist dan quasi als mensch das Zufallselement
+            System.out.println("Enter Seed");
+            float start = eingabe.nextInt();
+            while (bool) {
+                System.out.println("Another random number (y/n)?");
+                String s = eingabe.next();
+                if (Objects.equals(s, "y")) {
+                    // hier wird start dann als seed verwendet
+                    start = firstRandom(start);
+                    System.out.println(firstRandom(start));
+                } else {
+                    bool = false;
+                }
+            }
+        }else{
+            boolean bool = true;
+            System.out.println("Aufgabe2.2 Testen?");
+            if(Objects.equals(new Scanner(System.in).next(),"y")){
+                Scanner eingabe = new Scanner(System.in);
+                System.out.println("Enter max random Value");
+                int max = eingabe.nextInt();
+                float seed = randomSeed(max);
+                while(bool) {
+                    seed = secondRandom(max, seed);
+                    System.out.println(secondRandom(max, seed));
+                    System.out.println("Another random number? (y/n)?");
+                    if (!(Objects.equals(eingabe.next(),"y"))){
+                        bool = false;
+                    }
+                }
+
+            }else{
+                System.out.println("Aufgabe 2.4 Testen (y/n)?");
+                if(Objects.equals(new Scanner(System.in).next(),"y")){
+                    Scanner eingabe = new Scanner(System.in);
+                    System.out.println("Enter max random Value");
+                    int max = eingabe.nextInt();
+                    boolean bool2 = true;
+                    RandomADT r = new RandomADT(max);
+                    while (bool2){
+                        r.start();
+                        System.out.println("Another random number? (y/n)?");
+                        if (!(Objects.equals(eingabe.next(),"y"))){
+                            bool2 = false;
+                        }
+                    }
+                }
+
+                }
+
+        }
+    }
+}
