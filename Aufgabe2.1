@@ -1,0 +1,36 @@
+package com.company;
+import java.util.Objects;
+import java.util.Scanner;
+
+
+public class Main {
+
+// Die methode ist für die erste aufgabe
+    public static float firstRandom(float start) {
+        int max, factor, increment;
+        max = 1000;
+        factor = 623;
+        increment = 525;
+        float random = ((factor * start) + increment) % max;
+        return random;
+    }
+
+    public static void main(String[] args) {
+        boolean bool = true;
+        Scanner eingabe = new Scanner(System.in);
+        // hier muss man halt selber einen seed eingeben und ist dan quasi als mensch das Zufallselement
+        System.out.println("Enter Seed");
+        float start = eingabe.nextInt();
+        while (bool) {
+            System.out.println("Another random number (y/n)?");
+            String s = eingabe.next();
+            if (Objects.equals(s, "y")) {
+            // hier wird start dann als seed verwendet
+                start = firstRandom(start);
+                System.out.println(firstRandom(start));
+            } else {
+                bool = false;
+            }
+        }
+    }
+}
